@@ -843,7 +843,13 @@ export default function UploadPage() {
               )}
             </div>
 
-            {data.columns.length > 0 && (
+            {/* Not shown for the "wide" weekly format (one column per weekday):
+                that filter picks rows by a column's VALUE, but here the day
+                is picked by WHICH column to read (handled above) — showing
+                both invites exactly the mix-up of selecting "LUNES" here and
+                expecting it to filter, when no row's cell actually equals
+                the word "lunes". */}
+            {data.columns.length > 0 && weekdayColumns.length === 0 && (
               <div className="rounded-xl border border-border bg-card p-5 space-y-3">
                 <h3 className="text-sm font-semibold">Filtrar por columna</h3>
                 <p className="text-xs text-muted-foreground">
