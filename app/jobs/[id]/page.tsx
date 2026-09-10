@@ -156,7 +156,7 @@ function LabelPreview({
           )
         }
 
-        const content = substituteVars(el.content, row)
+        const content = el.uppercase ? substituteVars(el.content, row).toUpperCase() : substituteVars(el.content, row)
 
         if (align === "center" || align === "right") {
           const justification = align === "center" ? "center" : "right"

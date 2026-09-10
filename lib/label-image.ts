@@ -96,10 +96,11 @@ export async function renderLabelToPng(
     const align = el.textAlign ?? "left"
 
     if (el.type === "text" || el.type === "serial") {
-      const content =
+      let content =
         el.type === "serial"
           ? serialValue(el, Number(row.__labelIndex ?? 0))
           : substituteVars(el.content, row)
+      if (el.uppercase) content = content.toUpperCase()
       const fd = fontDots(el.fontSize)
       // Match the editor preview and printer's condensed bitmap font (ZPL ^A0)
       // by using Arial Narrow with slight negative letter-spacing. Regular
