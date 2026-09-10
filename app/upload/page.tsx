@@ -17,9 +17,11 @@ import {
   Eye,
   Download,
   Loader2,
+  AlertTriangle,
 } from "lucide-react"
 import { cn } from "@/lib/utils"
 import * as XLSX from "xlsx"
+import { isDateToken } from "@/lib/date-vars"
 import { PRESET_TEMPLATES } from "@/lib/preset-templates"
 import { renderLabelToPng } from "@/lib/label-image"
 import { analytics } from "@/lib/analytics"
@@ -309,6 +311,17 @@ export default function UploadPage() {
     ? weekdayColumns.length > 0
       ? data.columns.filter((c) => !weekdayColumns.includes(c) || c === weekdaySource)
       : data.columns
+    : []
+
+  // A variable in the template that matches nothing (not a real column, not
+  // the synthetic weekday variable, not a date token) prints literally as
+  // "{{loQueSea}}" — caught here in the past by the client wasting a whole
+  // roll of labels before noticing. Warn before printing instead.
+  const selectedTemplateData = templates.find((t) => t.id === selectedTemplate)
+  const unmatchedVars = data && selectedTemplateData
+    ? (selectedTemplateData.variables ?? []).filter(
+        (v) => !data.columns.includes(v) && v !== weekdayVarName && !isDateToken(v)
+      )
     : []
 
   // Render a preview image of the first label once the user reaches the confirm step.
@@ -849,6 +862,22 @@ export default function UploadPage() {
                       </div>
                     </button>
                   ))}
+                </div>
+              )}
+              {unmatchedVars.length > 0 && (
+                <div className="flex items-start gap-2 rounded-lg border border-destructive/40 bg-destructive/5 p-3 text-sm">
+                  <AlertTriangle className="h-4 w-4 text-destructive flex-shrink-0 mt-0.5" />
+                  <p className="text-foreground">
+                    Esta plantilla usa {unmatchedVars.length === 1 ? "la variable" : "las variables"}{" "}
+                    {unmatchedVars.map((v, i) => (
+                      <span key={v}>
+                        <strong>{`{{${v}}}`}</strong>{i < unmatchedVars.length - 1 ? ", " : ""}
+                      </span>
+                    ))}, que no coincide{unmatchedVars.length === 1 ? "" : "n"} con ninguna columna de tu Excel
+                    {weekdayVarName ? ` ni con {{${weekdayVarName}}}` : ""}. Va{unmatchedVars.length === 1 ? "" : "n"} a
+                    salir literal en la etiqueta (ej. <code>{`{{${unmatchedVars[0]}}}`}</code>) en vez del dato real —
+                    revisá el nombre en la plantilla antes de imprimir.
+                  </p>
                 </div>
               )}
             </div>
