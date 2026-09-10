@@ -1338,6 +1338,18 @@ export default function TemplateEditPage() {
                       )}
                     >B</button>
                   </div>
+                  {selectedElementData.type === "text" && (
+                    <div className="flex items-center justify-between">
+                      <label className="text-xs font-medium text-muted-foreground">Mayúsculas</label>
+                      <button
+                        onClick={() => updateElement(selectedElementData.id, { uppercase: !selectedElementData.uppercase })}
+                        title="Forzar mayúsculas al imprimir, sin importar cómo esté cargado el dato en el Excel"
+                        className={cn("rounded px-3 py-1 text-xs font-bold border transition-colors",
+                          selectedElementData.uppercase ? "bg-primary text-primary-foreground border-primary" : "border-border hover:border-primary"
+                        )}
+                      >AA</button>
+                    </div>
+                  )}
                   <div>
                     <label className="mb-1.5 block text-xs font-medium text-muted-foreground">Alineación</label>
                     <div className="flex gap-1">
@@ -1524,7 +1536,9 @@ export default function TemplateEditPage() {
                           lineHeight: 0.95,
                         }}
                       >
-                        {applyPreviewData(element.content ?? "")}
+                        {element.uppercase
+                          ? applyPreviewData(element.content ?? "").toUpperCase()
+                          : applyPreviewData(element.content ?? "")}
                       </span>
                     </div>
                   )}
