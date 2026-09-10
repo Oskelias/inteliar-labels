@@ -520,6 +520,44 @@ export default function ManualPage() {
               Las variables distinguen mayúsculas y minúsculas. Si tu columna en el Excel se llama
               &quot;Producto&quot; (con P mayúscula), la variable debe ser <InlineCode>{"{{Producto}}"}</InlineCode>.
             </Tip>
+
+            <h3 className="text-base font-semibold text-foreground mt-6 mb-3">
+              La variable tiene que ser idéntica al encabezado de la columna
+            </h3>
+            <p className="text-sm text-muted-foreground leading-relaxed mb-4">
+              El sistema no adivina a qué columna te referís: compara el nombre de la variable contra el
+              encabezado de la primera fila del Excel <strong className="text-foreground">letra por letra</strong>.
+              Si no coinciden exactamente —mayúsculas, espacios, tildes— la variable no encuentra dato y
+              queda literal en la etiqueta (por ejemplo <InlineCode>{"{{plato}}"}</InlineCode> impreso tal
+              cual, en vez del nombre del plato).
+            </p>
+            <Table
+              headers={["Encabezado en el Excel", "Variable correcta", "Por qué falla la variante"]}
+              rows={[
+                ["NOMBRE Y APELLIDO", "{{NOMBRE Y APELLIDO}}", "\"{{comensal}}\" no es el mismo texto, aunque signifique lo mismo"],
+                ["Miércoles", "{{Miércoles}}", "\"{{miercoles}}\" sin tilde no matchea"],
+                ["Empresa", "{{Empresa}}", "\"{{empresa}}\" en minúscula no matchea"],
+              ]}
+            />
+            <p className="text-sm text-muted-foreground leading-relaxed mt-4 mb-2">
+              Al elegir una plantilla en <InlineCode>Cargar Excel</InlineCode>, si alguna de sus variables no
+              coincide con ninguna columna, el sistema te avisa antes de imprimir con un cartel señalando
+              exactamente cuál — revisala ahí en vez de descubrirlo en la etiqueta ya impresa.
+            </p>
+
+            <h3 className="text-base font-semibold text-foreground mt-6 mb-3">
+              Excel con una columna por día (menú semanal)
+            </h3>
+            <p className="text-sm text-muted-foreground leading-relaxed mb-4">
+              Si tu Excel tiene una fila por persona y una columna por cada día
+              (<InlineCode>LUNES</InlineCode>, <InlineCode>MARTES</InlineCode>...) en vez de una sola columna
+              &quot;Día&quot;, no hace falta poner las 5 columnas en la plantilla. En{" "}
+              <InlineCode>Cargar Excel</InlineCode>, el sistema detecta ese formato solo y muestra
+              &quot;Menú semanal detectado&quot;, donde elegís un nombre de variable (por ejemplo{" "}
+              <InlineCode>plato</InlineCode>) y qué día imprimir. Esa variable se completa con el valor de la
+              columna del día elegido — usala una sola vez en la plantilla en vez de una por cada día. A los
+              comensales sin nada cargado ese día no se les imprime etiqueta.
+            </p>
           </section>
 
           {/* ══════════════════════════════════════
