@@ -98,7 +98,8 @@ function buildLabelZpl(
       continue
     }
 
-    const content = toAsciiSafe(substituteVars(el.content, row))
+    let content = toAsciiSafe(substituteVars(el.content, row))
+    if (el.uppercase) content = content.toUpperCase()
 
     if (el.type === "text") {
       // 3rd ^FB param is line spacing (negative = compact). ^LS is Label Shift

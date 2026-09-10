@@ -17,6 +17,9 @@ export interface LabelElement {
   // word can be centered inside a rectangle at any position. When undefined,
   // legacy behaviour applies (center/right align across the whole label).
   boxWidth?: number
+  // text: force the resolved content to print in uppercase, regardless of
+  // how the value is cased in the Excel column or typed in a static label.
+  uppercase?: boolean
   // image
   imageUrl?: string
   imgWidth?: number
