@@ -301,6 +301,16 @@ export default function UploadPage() {
     : []
   const includedCount = includedRows.length
 
+  // In the "vista previa de datos" table, showing all 5 weekday columns
+  // after picking one made the day selection look like it did nothing —
+  // the table looked identical no matter which day was chosen. Show only
+  // the day actually being printed instead of the full raw sheet.
+  const previewColumns = data
+    ? weekdayColumns.length > 0
+      ? data.columns.filter((c) => !weekdayColumns.includes(c) || c === weekdaySource)
+      : data.columns
+    : []
+
   // Render a preview image of the first label once the user reaches the confirm step.
   useEffect(() => {
     if (step !== 3 || !selectedTemplate || includedRows.length === 0) return
@@ -908,13 +918,21 @@ export default function UploadPage() {
                   </button>
                 </div>
               </div>
+              {weekdaySource && (
+                <p className="mb-2 text-xs text-muted-foreground">
+                  Mostrando solo la columna de <strong className="text-foreground">{weekdaySource}</strong> — las
+                  demás columnas de día quedan ocultas acá porque no se van a imprimir.
+                </p>
+              )}
               <div className="overflow-x-auto rounded-lg border border-border">
                 <table className="w-full text-xs">
                   <thead className="bg-muted">
                     <tr>
                       <th className="px-3 py-2 w-8"></th>
-                      {data.columns.map((col) => (
-                        <th key={col} className="px-3 py-2 text-left font-medium text-muted-foreground">{col}</th>
+                      {previewColumns.map((col) => (
+                        <th key={col} className={cn("px-3 py-2 text-left font-medium text-muted-foreground", col === weekdaySource && "text-primary")}>
+                          {col}
+                        </th>
                       ))}
                     </tr>
                   </thead>
@@ -938,8 +956,8 @@ export default function UploadPage() {
                             <td className="px-3 py-2 text-center">
                               <input type="checkbox" checked={!excluded} readOnly className="accent-primary" />
                             </td>
-                            {data.columns.map((col) => (
-                              <td key={col} className={cn("px-3 py-2 text-foreground", excluded && "line-through")}>{row[col]}</td>
+                            {previewColumns.map((col) => (
+                              <td key={col} className={cn("px-3 py-2 text-foreground", excluded && "line-through", col === weekdaySource && "font-medium")}>{row[col]}</td>
                             ))}
                           </tr>
                         )
