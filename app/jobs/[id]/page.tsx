@@ -20,6 +20,7 @@ import {
   Download,
 } from "lucide-react"
 import { generateZPL, downloadZPL, prepareImages, type GenerateZPLOptions } from "@/lib/zpl"
+import { resolveDateVars, isDateToken } from "@/lib/date-vars"
 import { printLabels } from "@/lib/print-label"
 import { PrinterAgentStatus } from "@/components/printer/agent-status"
 import { PrinterSelector } from "@/components/printer/printer-selector"
@@ -48,8 +49,16 @@ interface Template {
 
 const SCALE = 4
 
+// Mirrors lib/zpl.ts / lib/label-image.ts: dates ({{hoy}}, {{hoy+3d}}...)
+// always resolve through resolveDateVars, keys with spaces are supported,
+// and a token with no matching column is left as-is instead of blanked out.
 function substituteVars(text: string, row: Record<string, string>): string {
-  return text.replace(/\{\{(\w+)\}\}/g, (_, key) => row[key] ?? `{{${key}}}`)
+  const withData = text.replace(/\{\{([^}]+)\}\}/g, (match, key) => {
+    const trimmedKey = String(key).trim()
+    if (isDateToken(trimmedKey)) return match
+    return trimmedKey in row ? row[trimmedKey] ?? "" : match
+  })
+  return resolveDateVars(withData)
 }
 
 function LabelPreview({
