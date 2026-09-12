@@ -1,6 +1,14 @@
+import type { Metadata } from "next"
 import { XCircle } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { whatsappLink } from "@/lib/contact"
+
+// Transactional error page reached only from a failed checkout — no
+// standalone search value.
+export const metadata: Metadata = {
+  title: "Error en el pago — Inteliar Labels",
+  robots: { index: false, follow: true },
+}
 
 export default function PagoErrorPage() {
   return (

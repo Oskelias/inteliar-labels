@@ -9,6 +9,7 @@ export const metadata: Metadata = {
   title: "Etiquetas para Tiendanube — Inteliar Labels",
   description:
     "Importá todos tus productos de Tiendanube y generá etiquetas para tu impresora térmica en minutos. Sin Excel, sin copiar y pegar. Compatible con Zebra, TSC y Godex.",
+  alternates: { canonical: "/integracion-tiendanube" },
   keywords: [
     "etiquetas Tiendanube",
     "imprimir etiquetas Tiendanube",

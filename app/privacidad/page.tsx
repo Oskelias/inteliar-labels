@@ -2,6 +2,7 @@ import Link from "next/link"
 
 export const metadata = {
   title: "Política de Privacidad | Inteliar Labels",
+  alternates: { canonical: "/privacidad" },
 }
 
 export default function PrivacidadPage() {

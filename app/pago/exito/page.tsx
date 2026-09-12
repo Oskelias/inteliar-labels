@@ -1,6 +1,15 @@
+import type { Metadata } from "next"
 import { CheckCircle2 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { whatsappLink } from "@/lib/contact"
+
+// Transactional confirmation page reached only right after checkout — no
+// standalone search value, and indexing it risks it outranking the real
+// pricing/landing page for brand queries.
+export const metadata: Metadata = {
+  title: "Pago recibido — Inteliar Labels",
+  robots: { index: false, follow: true },
+}
 
 export default function PagoExitoPage() {
   return (
