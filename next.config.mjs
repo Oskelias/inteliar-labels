@@ -22,7 +22,17 @@ const csp = [
   // beacons fired by gtag.js when a Google Ads account is linked to GA4.
   // www.facebook.com / connect.facebook.net are the Meta Pixel's tracking
   // beacons (fbq 'track' calls and the noscript <img> fallback).
-  "connect-src 'self' https://*.supabase.co wss://*.supabase.co https://www.google-analytics.com https://vitals.vercel-insights.com https://api.mercadopago.com https://open.er-api.com https://ad.doubleclick.net https://www.google.com https://googleads.g.doubleclick.net https://www.facebook.com https://connect.facebook.net http://localhost:* http://127.0.0.1:*",
+  // analytics.google.com and stats.g.doubleclick.net are GA4's actual
+  // /g/collect beacon endpoints (google-analytics.com alone isn't enough —
+  // gtag.js posts hits to these too) — without them every pageview/event
+  // was silently dropped by the CSP instead of reaching Analytics.
+  // NOTE: the Meta Pixel also probes a couple of random-looking
+  // <hash>.run.app / <hash>.ecs.*.amazonaws.com hosts on every load. That's
+  // Meta's Conversions API Gateway auto-discovery (it checks for an
+  // optional customer-hosted relay) — we don't run one, the hostnames are
+  // generated per session, and the probe is designed to fail silently, so
+  // there's no fixed domain to allowlist and blocking it is expected/fine.
+  "connect-src 'self' https://*.supabase.co wss://*.supabase.co https://www.google-analytics.com https://analytics.google.com https://stats.g.doubleclick.net https://vitals.vercel-insights.com https://api.mercadopago.com https://open.er-api.com https://ad.doubleclick.net https://www.google.com https://googleads.g.doubleclick.net https://www.facebook.com https://connect.facebook.net http://localhost:* http://127.0.0.1:*",
   "frame-ancestors 'none'",
   "base-uri 'self'",
   "object-src 'none'",

@@ -35,7 +35,7 @@ export function Footer() {
           </div>
 
           <div>
-            <h4 className="font-semibold text-foreground mb-4 text-sm">Producto</h4>
+            <h3 className="font-semibold text-foreground mb-4 text-sm">Producto</h3>
             <ul className="space-y-3">
               {footerLinks.product.map((link) => (
                 <li key={link.label}>
@@ -51,7 +51,7 @@ export function Footer() {
           </div>
 
           <div>
-            <h4 className="font-semibold text-foreground mb-4 text-sm">Recursos</h4>
+            <h3 className="font-semibold text-foreground mb-4 text-sm">Recursos</h3>
             <ul className="space-y-3">
               {footerLinks.resources.map((link) => (
                 <li key={link.label}>
@@ -67,7 +67,7 @@ export function Footer() {
           </div>
 
           <div>
-            <h4 className="font-semibold text-foreground mb-4 text-sm">Legal</h4>
+            <h3 className="font-semibold text-foreground mb-4 text-sm">Legal</h3>
             <ul className="space-y-3">
               {footerLinks.legal.map((link) => (
                 <li key={link.label}>
