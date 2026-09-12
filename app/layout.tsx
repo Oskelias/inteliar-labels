@@ -146,6 +146,11 @@ export default function RootLayout({
         "url": "https://etiquetar.app",
         "name": "Inteliar Labels",
         "alternateName": "Etiquetar.app",
+        // Explicit for search engines and AI assistants: Etiquetar.app is
+        // the product's domain, Inteliar Labels its brand/product name —
+        // Inteliar Stack (the company) stays out of the public-facing copy
+        // and lives only in the Organization node above.
+        "description": "Etiquetar.app es la plataforma de Inteliar Labels para diseñar, gestionar e imprimir etiquetas térmicas.",
         "publisher": { "@id": "https://etiquetar.app/#organization" },
         "inLanguage": "es-AR"
       },
