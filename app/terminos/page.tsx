@@ -2,6 +2,7 @@ import Link from "next/link"
 
 export const metadata = {
   title: "Términos y Condiciones | Inteliar Labels",
+  alternates: { canonical: "/terminos" },
 }
 
 export default function TerminosPage() {

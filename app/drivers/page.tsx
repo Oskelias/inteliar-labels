@@ -5,6 +5,7 @@ export const metadata = {
   title: "Drivers de impresoras | Inteliar Labels",
   description:
     "Enlaces oficiales para descargar el driver de tu impresora de etiquetas: Honeywell, Zebra, TSC, Citizen, Sato y Bixolon.",
+  alternates: { canonical: "/drivers" },
 }
 
 export default function DriversPage() {

@@ -11,6 +11,9 @@ const _geistMono = Geist_Mono({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://etiquetar.app'),
+  alternates: {
+    canonical: '/',
+  },
   verification: {
     google: 'nemBe9x4IsZm82Op4LTeiMRz8HDCdYi6mu3FrrlBr_M',
   },
@@ -115,62 +118,85 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode
 }>) {
+  // Real Organization/WebSite/SoftwareApplication facts only — no
+  // aggregateRating (would need real, verifiable review data we don't
+  // have; a fabricated one risks a manual action for review-snippet
+  // spam under Google's structured-data guidelines).
   const jsonLd = {
     "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
-    "name": "Inteliar Labels",
-    "applicationCategory": "BusinessApplication",
-    "operatingSystem": "Windows",
-    "url": "https://etiquetar.app",
-    "description": "Software SaaS para imprimir etiquetas térmicas. Integraciones con Mercado Libre (incluida la etiqueta oficial de Mercado Envíos) y Tiendanube, o importación desde Excel/CSV. Soporte para impresoras Zebra, TSC, Honeywell y Brother. Diseñador visual con IA.",
-    "offers": [
+    "@graph": [
       {
-        "@type": "Offer",
-        "name": "Plan Mensual",
-        "price": "12",
-        "priceCurrency": "USD",
-        "priceSpecification": {
-          "@type": "UnitPriceSpecification",
-          "price": "12",
-          "priceCurrency": "USD",
-          "unitCode": "MON"
+        "@type": "Organization",
+        "@id": "https://etiquetar.app/#organization",
+        "name": "Inteliar Stack",
+        "url": "https://etiquetar.app",
+        "email": "inteliarstack.ia@gmail.com",
+        "logo": "https://etiquetar.app/og-image.png",
+        // Inteliar Labels is this org's product, served at etiquetar.app —
+        // stated explicitly so search engines and AI assistants resolve
+        // the brand/domain relationship instead of guessing at it.
+        "brand": {
+          "@type": "Brand",
+          "name": "Inteliar Labels"
         }
       },
       {
-        "@type": "Offer",
-        "name": "Plan Pro",
-        "price": "25",
-        "priceCurrency": "USD"
+        "@type": "WebSite",
+        "@id": "https://etiquetar.app/#website",
+        "url": "https://etiquetar.app",
+        "name": "Inteliar Labels",
+        "alternateName": "Etiquetar.app",
+        "publisher": { "@id": "https://etiquetar.app/#organization" },
+        "inLanguage": "es-AR"
       },
       {
-        "@type": "Offer",
-        "name": "Plan Pro · 5 años",
-        "price": "800",
-        "priceCurrency": "USD"
+        "@type": "SoftwareApplication",
+        "@id": "https://etiquetar.app/#software",
+        "name": "Inteliar Labels",
+        "applicationCategory": "BusinessApplication",
+        "operatingSystem": "Windows",
+        "url": "https://etiquetar.app",
+        "description": "Software SaaS para imprimir etiquetas térmicas. Integraciones con Mercado Libre (incluida la etiqueta oficial de Mercado Envíos) y Tiendanube, o importación desde Excel/CSV. Soporte para impresoras Zebra, TSC, Honeywell y Brother. Diseñador visual con IA.",
+        "offers": [
+          {
+            "@type": "Offer",
+            "name": "Plan Mensual",
+            "price": "12",
+            "priceCurrency": "USD",
+            "priceSpecification": {
+              "@type": "UnitPriceSpecification",
+              "price": "12",
+              "priceCurrency": "USD",
+              "unitCode": "MON"
+            }
+          },
+          {
+            "@type": "Offer",
+            "name": "Plan Pro",
+            "price": "25",
+            "priceCurrency": "USD"
+          },
+          {
+            "@type": "Offer",
+            "name": "Plan Pro · 5 años",
+            "price": "800",
+            "priceCurrency": "USD"
+          }
+        ],
+        "publisher": { "@id": "https://etiquetar.app/#organization" },
+        "featureList": [
+          "Diseñador visual de plantillas",
+          "Asistente de IA para crear plantillas",
+          "Integración con Mercado Libre (etiqueta oficial de Mercado Envíos)",
+          "Integración con Tiendanube (pedidos y catálogo)",
+          "Importación desde Excel y CSV",
+          "Soporte Zebra ZPL, TSC TSPL, Honeywell, Brother",
+          "Trial gratuito 15 días"
+        ],
+        "screenshot": "https://etiquetar.app/og-image.png",
+        "softwareVersion": "1.0"
       }
-    ],
-    "author": {
-      "@type": "Organization",
-      "name": "Inteliar Stack",
-      "email": "inteliarstack.ia@gmail.com",
-      "url": "https://etiquetar.app"
-    },
-    "featureList": [
-      "Diseñador visual de plantillas",
-      "Asistente de IA para crear plantillas",
-      "Integración con Mercado Libre (etiqueta oficial de Mercado Envíos)",
-      "Integración con Tiendanube (pedidos y catálogo)",
-      "Importación desde Excel y CSV",
-      "Soporte Zebra ZPL, TSC TSPL, Honeywell, Brother",
-      "Trial gratuito 15 días"
-    ],
-    "screenshot": "https://etiquetar.app/og-image.png",
-    "softwareVersion": "1.0",
-    "aggregateRating": {
-      "@type": "AggregateRating",
-      "ratingValue": "5",
-      "ratingCount": "1"
-    }
+    ]
   }
 
   return (

@@ -3,6 +3,7 @@ import { RubroPage } from "@/components/landing/rubro-page"
 export const metadata = {
   title: "Etiquetas para Mayoristas y Distribuidoras — Inteliar Labels",
   description: "Imprimí etiquetas de precio y producto para mayoristas y distribuidoras desde Excel. Miles de etiquetas en minutos. Compatible con Zebra y TSC.",
+  alternates: { canonical: "/mayoristas" },
 }
 
 export default function MayoristasPage() {

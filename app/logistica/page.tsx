@@ -3,6 +3,7 @@ import { RubroPage } from "@/components/landing/rubro-page"
 export const metadata = {
   title: "Etiquetas para Logística y Envíos — Inteliar Labels",
   description: "Imprimí etiquetas de envío, remito y bulto para tu operación logística desde Excel. Compatible con Zebra, TSC y Honeywell. Trial 15 días gratis.",
+  alternates: { canonical: "/logistica" },
 }
 
 export default function LogisticaPage() {

@@ -3,6 +3,7 @@ import { RubroPage } from "@/components/landing/rubro-page"
 export const metadata = {
   title: "Etiquetas para Farmacias — Inteliar Labels",
   description: "Imprimí etiquetas de precio, medicamentos y productos OTC para tu farmacia desde Excel. Compatible con Zebra, TSC y Brother. Trial 15 días gratis.",
+  alternates: { canonical: "/farmacias" },
 }
 
 export default function FarmaciasPage() {

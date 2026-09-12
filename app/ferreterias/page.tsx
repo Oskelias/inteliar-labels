@@ -3,6 +3,7 @@ import { RubroPage } from "@/components/landing/rubro-page"
 export const metadata = {
   title: "Etiquetas para Ferreterías — Inteliar Labels",
   description: "Imprimí etiquetas de precio y producto para tu ferretería desde Excel. Compatible con Zebra, TSC y Godex. Trial 15 días gratis.",
+  alternates: { canonical: "/ferreterias" },
 }
 
 export default function FerreteriasPage() {

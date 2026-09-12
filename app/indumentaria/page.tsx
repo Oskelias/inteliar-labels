@@ -3,6 +3,7 @@ import { RubroPage } from "@/components/landing/rubro-page"
 export const metadata = {
   title: "Etiquetas para Indumentaria y Ropa — Inteliar Labels",
   description: "Imprimí etiquetas de precio, talle y código para tu negocio de ropa desde Excel. Compatible con Zebra, TSC y Brother. Trial 15 días gratis.",
+  alternates: { canonical: "/indumentaria" },
 }
 
 export default function IndumentariaPage() {
