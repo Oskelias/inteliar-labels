@@ -2,6 +2,12 @@
   "name": "inteliar-labels",
   "version": "0.1.0",
   "private": true,
+  "browserslist": [
+    "chrome >= 96",
+    "edge >= 96",
+    "firefox >= 96",
+    "safari >= 15.4"
+  ],
   "scripts": {
     "dev": "next dev",
     "build": "next build",
